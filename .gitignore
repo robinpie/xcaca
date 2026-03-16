@@ -14,3 +14,4 @@ xorg-server/libcaca_*.debian.tar.*
 
 # Logs
 *.log
+.fuse_hidden0001de4a00000001
