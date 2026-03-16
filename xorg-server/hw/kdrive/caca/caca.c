@@ -46,6 +46,9 @@ KdKeyboardInfo *cacaKbd   = NULL;
 KdPointerInfo  *cacaMouse = NULL;
 
 static void cacaScreenBlockHandler(ScreenPtr pScreen, void *timeout);
+static Bool s_resize_pending = FALSE; /* set by resize handler, cleared after repaint */
+static int  s_last_cols = -1;         /* canvas size after last processed resize */
+static int  s_last_rows = -1;
 
 /* ------------------------------------------------------------------ */
 /* Card-level lifecycle                                                */
@@ -190,9 +193,10 @@ cacaInternalDamageRedisplay(ScreenPtr pScreen)
         return;
 
     pRegion = DamageRegion(scrpriv->pDamage);
-    if (RegionNotEmpty(pRegion)) {
+    if (RegionNotEmpty(pRegion) || s_resize_pending) {
         caca_host_paint(scrpriv->fb_data);
         DamageEmpty(scrpriv->pDamage);
+        s_resize_pending = FALSE;
     }
 }
 
@@ -246,11 +250,21 @@ cacaPollEvents(void)
             caca_enqueue_button(btn, TRUE);
         }
         else if (type & CACA_EVENT_RESIZE) {
-            /* Recompute aspect-corrected draw rect for new terminal size */
-            if (screenInfo.numScreens > 0) {
-                KdPrivScreenPtr kp = KdGetScreenPriv(screenInfo.screens[0]);
-                if (kp && kp->screen)
-                    caca_host_screen_init(kp->screen->width, kp->screen->height);
+            /* Only act on resizes where the canvas dimensions actually changed.
+             * caca_refresh_display can trigger spurious RESIZE events without
+             * changing the canvas size, causing an infinite repaint loop. */
+            int new_cols, new_rows;
+            caca_host_get_canvas_size(&new_cols, &new_rows);
+            if (new_cols != s_last_cols || new_rows != s_last_rows) {
+                s_last_cols = new_cols;
+                s_last_rows = new_rows;
+                if (screenInfo.numScreens > 0) {
+                    KdPrivScreenPtr kp = KdGetScreenPriv(screenInfo.screens[0]);
+                    if (kp && kp->screen)
+                        caca_host_screen_init(kp->screen->width, kp->screen->height);
+                }
+                /* Damage was already consumed; force a repaint next cycle. */
+                s_resize_pending = TRUE;
             }
         }
         else if (type & CACA_EVENT_QUIT) {

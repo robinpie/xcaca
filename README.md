@@ -115,6 +115,7 @@ Xcaca :1 -cell-aspect auto
 - **Key mapping is lossy**: dead keys, AltGr, and compose sequences don't work through a terminal
 - **No GPU acceleration** — pure software rendering
 - **Single screen** only
+- **Ctrl+C shutdown hangs**: pressing Ctrl+C begins shutdown but the process blocks until something connects to the X socket. Workaround: `pkill -x Xcaca` from another terminal
 
 ## How it works
 
