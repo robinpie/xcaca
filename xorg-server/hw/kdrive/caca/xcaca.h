@@ -1,12 +1,7 @@
 /*
  * Xcaca - A kdrive X server that renders via libcaca ASCII art.
  *
- * Permission to use, copy, modify, distribute, and sell this software and its
- * documentation for any purpose is hereby granted without fee, provided that
- * the above copyright notice appear in all copies and that both that
- * copyright notice and this permission notice appear in supporting
- * documentation. This software is provided "as is" without express or
- * implied warranty.
+ * Copyright © 2025 Robin
  */
 
 #ifndef _XCACA_H_
@@ -95,6 +90,7 @@ Bool  caca_host_screen_init(int width, int height);
 void  caca_host_paint(void *framebuffer);
 int   caca_host_poll_event(caca_event_t *ev);
 void  caca_host_get_canvas_size(int *cols, int *rows);
+void  caca_host_get_dst_rect(int *x, int *y, int *w, int *h);
 void  caca_host_set_cell_aspect(float r);
 float caca_host_query_cell_aspect(void);
 

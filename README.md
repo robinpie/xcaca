@@ -2,7 +2,7 @@
 
 An X11 server that renders its framebuffer as ASCII art in your terminal, powered by [libcaca](http://caca.zoy.org/).
 
-Run real X11 GUI applications — xeyes, xterm, xclock — as terminal art over SSH, in headless environments, or just for the aesthetic.
+Run regular X11 GUI applications as terminal art over SSH, in headless environments, or just for the aesthetic.
 
 ![Screenshot of xeyes running in Xcaca](exampleScreenshot.png)
 
@@ -61,8 +61,20 @@ DISPLAY=:1 xterm
 | `-brightness <f>` | Brightness multiplier | `1.0` |
 | `-gamma <f>` | Gamma correction | `1.0` |
 | `-contrast <f>` | Contrast adjustment | `1.0` |
-| `-caca-driver <drv>` | libcaca output driver: `ncurses`, `slang`, `x11`, ... | auto |
 | `-cell-aspect <f\|auto>` | Terminal cell width/height ratio | `auto` |
+
+### Output driver
+
+Xcaca uses libcaca for rendering. The driver is auto-selected but can be overridden via the `CACA_DRIVER` environment variable:
+
+| Driver | Description |
+|--------|-------------|
+| `ncurses` | ncurses terminal (default, best compatibility) |
+| `slang` | S-Lang terminal (fallback) |
+
+```bash
+CACA_DRIVER=slang Xcaca :1 -screen 640x480 &
+```
 
 ### Examples
 
@@ -74,9 +86,6 @@ DISPLAY=:1 xlogo
 # Force Floyd-Steinberg dither with boosted contrast
 Xcaca :1 -screen 640x480 -dither fstein -contrast 1.4 &
 DISPLAY=:1 xterm
-
-# Use the x11 caca driver (renders into an X window) for testing
-CACA_DRIVER=x11 Xcaca :1 -screen 800x600 &
 
 # Ordered dither — faster, retro look
 Xcaca :1 -screen 640x480 -dither ordered4 -charset shades &

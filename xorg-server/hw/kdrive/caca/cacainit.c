@@ -1,6 +1,27 @@
 /*
  * Xcaca - Entry point, CLI argument parsing, KdCardFuncs registration.
- * Modelled on xorg-server/hw/kdrive/ephyr/ephyrinit.c
+ * Based on xorg-server/hw/kdrive/ephyr/ephyrinit.c
+ *
+ * Copyright © 2004 Nokia
+ * Copyright © 2025 Robin
+ *
+ * Permission to use, copy, modify, distribute, and sell this software and its
+ * documentation for any purpose is hereby granted without fee, provided that
+ * the above copyright notice appear in all copies and that both that
+ * copyright notice and this permission notice appear in supporting
+ * documentation, and that the name of Nokia not be used in
+ * advertising or publicity pertaining to distribution of the software without
+ * specific, written prior permission. Nokia makes no
+ * representations about the suitability of this software for any purpose.  It
+ * is provided "as is" without express or implied warranty.
+ *
+ * NOKIA DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+ * EVENT SHALL NOKIA BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+ * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+ * DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+ * TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+ * PERFORMANCE OF THIS SOFTWARE.
  */
 
 #ifdef HAVE_DIX_CONFIG_H
@@ -178,15 +199,6 @@ ddxProcessArgument(int argc, char **argv, int i)
         UseMsg();
         exit(1);
     }
-    else if (!strcmp(argv[i], "-caca-driver")) {
-        if (i + 1 < argc) {
-            /* Set before display is created via CACA_DRIVER env var */
-            setenv("CACA_DRIVER", argv[i + 1], 1);
-            return 2;
-        }
-        UseMsg();
-        exit(1);
-    }
     else if (!strcmp(argv[i], "-cell-aspect")) {
         if (i + 1 < argc) {
             const char *val = argv[i + 1];
@@ -230,7 +242,6 @@ ddxUseMsg(void)
     ErrorF("-brightness <f>        Brightness multiplier (default: 1.0)\n");
     ErrorF("-gamma <f>             Gamma correction (default: 1.0)\n");
     ErrorF("-contrast <f>          Contrast adjustment (default: 1.0)\n");
-    ErrorF("-caca-driver <drv>     libcaca output driver (ncurses,slang,x11,...)\n");
     ErrorF("-cell-aspect <f|auto>  Cell width/height ratio (default: 0.5)\n");
     ErrorF("                       Use 'auto' to detect from TIOCGWINSZ\n");
     ErrorF("\n");

@@ -1,8 +1,30 @@
 /*
  * Xcaca - libcaca display abstraction (analogous to Xephyr's hostx.c).
+ * Based on xorg-server/hw/kdrive/ephyr/hostx.c
  *
  * Manages a single caca canvas+display+dither.  All state is file-static;
  * Xcaca is single-screen.
+ *
+ * Copyright © 2004 Nokia
+ * Copyright © 2025 Robin
+ *
+ * Permission to use, copy, modify, distribute, and sell this software and its
+ * documentation for any purpose is hereby granted without fee, provided that
+ * the above copyright notice appear in all copies and that both that
+ * copyright notice and this permission notice appear in supporting
+ * documentation, and that the name of Nokia not be used in
+ * advertising or publicity pertaining to distribution of the software without
+ * specific, written prior permission. Nokia makes no
+ * representations about the suitability of this software for any purpose.  It
+ * is provided "as is" without express or implied warranty.
+ *
+ * NOKIA DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+ * INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO
+ * EVENT SHALL NOKIA BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+ * CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+ * DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+ * TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+ * PERFORMANCE OF THIS SOFTWARE.
  */
 
 #ifdef HAVE_DIX_CONFIG_H
@@ -249,6 +271,15 @@ caca_host_get_canvas_size(int *cols, int *rows)
         *cols = 80;
         *rows = 24;
     }
+}
+
+void
+caca_host_get_dst_rect(int *x, int *y, int *w, int *h)
+{
+    *x = s_dst_x;
+    *y = s_dst_y;
+    *w = s_dst_w;
+    *h = s_dst_h;
 }
 
 void

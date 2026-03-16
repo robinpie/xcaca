@@ -1,2 +1,16 @@
+# Dev notes (not for public repo)
 CLAUDE.md
 originalPrompt.md
+
+# Build output
+xorg-server/builddir/
+
+# Convenience binary symlink/copy at project root
+Xcaca
+
+# libcaca source tarballs downloaded during development
+xorg-server/libcaca_*.tar.*
+xorg-server/libcaca_*.debian.tar.*
+
+# Logs
+*.log

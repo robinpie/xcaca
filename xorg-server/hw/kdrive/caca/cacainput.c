@@ -4,6 +4,8 @@
  * libcaca provides key characters and mouse cell coordinates, not hardware
  * scancodes.  We synthesise evdev scancodes (with +8 offset per X11
  * convention) from the caca key values.
+ *
+ * Copyright © 2025 Robin
  */
 
 #ifdef HAVE_DIX_CONFIG_H
@@ -307,26 +309,31 @@ caca_key_to_scancode(int key, Bool *needs_shift)
 void
 caca_mouse_to_pixels(int cx, int cy)
 {
-    int cols, rows;
+    int dst_x, dst_y, dst_w, dst_h;
     int px, py;
 
     if (!cacaMouse)
         return;
 
-    caca_host_get_canvas_size(&cols, &rows);
-    if (cols <= 0 || rows <= 0)
+    caca_host_get_dst_rect(&dst_x, &dst_y, &dst_w, &dst_h);
+    if (dst_w <= 0 || dst_h <= 0)
         return;
 
-    /* Use first screen dimensions */
     if (screenInfo.numScreens < 1)
         return;
 
     ScreenPtr pScreen = screenInfo.screens[0];
-    px = (cx * pScreen->width)  / cols;
-    py = (cy * pScreen->height) / rows;
 
-    ErrorF("Xcaca: mouse pixel=(%d,%d) from cell=(%d,%d) screen=%dx%d canvas=%dx%d\n",
-           px, py, cx, cy, pScreen->width, pScreen->height, cols, rows);
+    /* Map cell coordinates relative to the dither destination rect */
+    px = ((cx - dst_x) * pScreen->width)  / dst_w;
+    py = ((cy - dst_y) * pScreen->height) / dst_h;
+
+    /* Clamp to screen bounds */
+    if (px < 0) px = 0;
+    if (py < 0) py = 0;
+    if (px >= pScreen->width)  px = pScreen->width  - 1;
+    if (py >= pScreen->height) py = pScreen->height - 1;
+
     KdEnqueuePointerEvent(cacaMouse, KD_POINTER_DESKTOP, px, py, 0);
 }
 
