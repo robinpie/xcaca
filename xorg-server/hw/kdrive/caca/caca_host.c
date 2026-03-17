@@ -201,6 +201,15 @@ caca_host_screen_init(int width, int height)
     apply_dither_settings();
     recompute_dst_rect();
 
+    /* Clear the terminal display to eliminate ghost characters from
+     * the previous canvas size/layout.  Forces ncurses to redraw all
+     * cells on the next refresh rather than skipping ones it thinks
+     * haven't changed. */
+    if (s_display) {
+        caca_clear_canvas(s_canvas);
+        caca_refresh_display(s_display);
+    }
+
     ErrorF("Xcaca: screen_init fb=%dx%d canvas=%dx%d dst=(%d,%d %dx%d) aspect=%.3f\n",
            width, height,
            s_canvas ? caca_get_canvas_width(s_canvas) : 0,
