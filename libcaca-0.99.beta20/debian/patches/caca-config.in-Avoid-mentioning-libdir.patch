@@ -1,0 +1,45 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 11 Jul 2022 08:57:31 +0100
+Subject: caca-config.in: Avoid mentioning @libdir@
+
+The upstream version of this script needs -L@libdir@ because it is
+unknown whether libcaca was installed into a directory in the compiler's
+default search path, but for Debian it is safe to omit that linker
+option and rely on the default search path.
+
+Avoiding all mentions of @libdir@ means the generated caca-config
+script ends up identical for all architectures, allowing libcaca-dev
+to become multiarch co-installable.
+
+Forwarded: not-needed, Debian-specific
+---
+ caca-config.in | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/caca-config.in b/caca-config.in
+index a54e6e1..9dc9530 100644
+--- a/caca-config.in
++++ b/caca-config.in
+@@ -5,7 +5,6 @@
+ prefix=@prefix@
+ exec_prefix=@exec_prefix@
+ 
+-lib_dir=@libdir@
+ include_dir=@includedir@
+ 
+ usage()
+@@ -107,12 +106,12 @@ fi
+ 
+ if test "$echo_ldflags" = "yes"
+ then
+-  ldflags="-L$lib_dir"
++  ldflags=""
+   echo $ldflags
+ fi
+ 
+ if test "$echo_libs" = "yes"
+ then
+-  echo -L@libdir@ $libs
++  echo $libs
+ fi
+ 

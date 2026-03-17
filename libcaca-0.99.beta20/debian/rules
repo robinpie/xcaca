@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/architecture.mk
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	--enable-ncurses \
+	--enable-slang \
+	--enable-x11 \
+	--enable-gl \
+	--enable-imlib2 \
+	--enable-plugins \
+	--enable-cxx \
+	--enable-doc \
+	--disable-csharp \
+	--disable-java \
+	--disable-ruby \
+	--disable-python
+
+override_dh_shlibdeps:
+	dh_shlibdeps -L libcaca0 -l debian/libcaca0/usr/lib/$(DEB_HOST_MULTIARCH)/ -X /usr/lib/$(DEB_HOST_MULTIARCH)/caca/

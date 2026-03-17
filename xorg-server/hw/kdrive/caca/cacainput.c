@@ -312,8 +312,13 @@ caca_mouse_to_pixels(int cx, int cy)
         return;
 
     caca_host_get_dst_rect(&dst_x, &dst_y, &dst_w, &dst_h);
-    if (dst_w <= 0 || dst_h <= 0)
-        return;
+    if (dst_w <= 0 || dst_h <= 0) {
+        /* dst rect not yet computed (canvas was 0×0 at init); try now */
+        caca_host_recompute_dst_rect();
+        caca_host_get_dst_rect(&dst_x, &dst_y, &dst_w, &dst_h);
+        if (dst_w <= 0 || dst_h <= 0)
+            return;
+    }
 
     if (screenInfo.numScreens < 1)
         return;

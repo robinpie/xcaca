@@ -158,12 +158,6 @@ caca_host_init(void)
     caca_set_display_time(s_display, 0);
     caca_set_mouse(s_display, 1);
 
-    /* Explicitly enable xterm any-event mouse tracking.
-     * ncurses REPORT_MOUSE_POSITION may not work on all terminals;
-     * this escape sequence is widely supported (xterm, Konsole, etc.). */
-    fprintf(stdout, "\033[?1003h");
-    fflush(stdout);
-
     /* Ensure terminal is restored on any exit path.
      * Do NOT override SIGINT/SIGTERM — the X server installs GiveUp()
      * for those, which triggers a graceful shutdown.  atexit is enough
@@ -244,6 +238,12 @@ caca_host_paint(void *framebuffer)
     caca_clear_canvas(s_canvas);
     caca_dither_bitmap(s_canvas, x, y, w, h, s_dither, framebuffer);
     caca_refresh_display(s_display);
+
+    /* Re-assert any-event mouse tracking after every ncurses refresh.
+     * ncurses may reset to basic click-only mode (\033[?1000h) on its
+     * first or full repaint; sending \033[?1003h immediately after
+     * caca_refresh_display ensures our escape arrives last. */
+    (void)!write(STDOUT_FILENO, "\033[?1003h", 8);
 }
 
 /* Returns 1 if an event was available, 0 otherwise (non-blocking). */
@@ -281,6 +281,12 @@ caca_host_set_cell_aspect(float r)
 {
     if (r > 0.0f)
         s_cell_aspect = r;
+    recompute_dst_rect();
+}
+
+void
+caca_host_recompute_dst_rect(void)
+{
     recompute_dst_rect();
 }
 
@@ -333,7 +339,7 @@ caca_host_fini(void)
             tty = open("/dev/tty", O_WRONLY);
 
         if (tty >= 0) {
-            static const char reset_seq[] = "\033[?1003l\033[?1049l\033[?25h\033[0m\n";
+            static const char reset_seq[] = "\033[?1003l\033[?1000l\033[?1049l\033[?25h\033[0m\n";
             (void)!write(tty, reset_seq, sizeof(reset_seq) - 1);
             if (tty != STDOUT_FILENO && tty != STDERR_FILENO)
                 close(tty);

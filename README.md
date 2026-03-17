@@ -41,11 +41,13 @@ Binary: `xorg-server/builddir/hw/kdrive/caca/Xcaca`
 
 ## Usage
 
-```bash
-# Start Xcaca on display :1 with 640×480 framebuffer
-./xorg-server/builddir/hw/kdrive/caca/Xcaca :1 -screen 640x480 &
+Xcaca takes over the terminal it runs in to display ASCII art, so it must run in the **foreground**. Use two terminals or a tmux split:
 
-# Run X clients on it
+```bash
+# Terminal 1 (or tmux pane): Xcaca renders here
+./xorg-server/builddir/hw/kdrive/caca/Xcaca :1 -screen 640x480
+
+# Terminal 2 (or another tmux pane): run X clients
 DISPLAY=:1 xeyes
 DISPLAY=:1 xclock
 DISPLAY=:1 xterm
@@ -73,22 +75,24 @@ Xcaca uses libcaca for rendering. The driver is auto-selected but can be overrid
 | `slang` | S-Lang terminal (fallback) |
 
 ```bash
-CACA_DRIVER=slang Xcaca :1 -screen 640x480 &
+CACA_DRIVER=slang Xcaca :1 -screen 640x480
 ```
 
 ### Examples
 
+In each case, run Xcaca in one terminal and the X client in another:
+
 ```bash
 # Blocks charset looks great for UI elements
-Xcaca :1 -screen 320x240 -charset blocks &
-DISPLAY=:1 xlogo
+Xcaca :1 -screen 320x240 -charset blocks   # terminal 1
+DISPLAY=:1 xlogo                            # terminal 2
 
 # Force Floyd-Steinberg dither with boosted contrast
-Xcaca :1 -screen 640x480 -dither fstein -contrast 1.4 &
+Xcaca :1 -screen 640x480 -dither fstein -contrast 1.4
 DISPLAY=:1 xterm
 
 # Ordered dither — faster, retro look
-Xcaca :1 -screen 640x480 -dither ordered4 -charset shades &
+Xcaca :1 -screen 640x480 -dither ordered4 -charset shades
 ```
 
 ### Cell aspect ratio

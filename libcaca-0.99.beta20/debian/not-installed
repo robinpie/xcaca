@@ -1,0 +1,3 @@
+usr/lib/*/*.la
+usr/lib/*/caca/*.a
+usr/lib/*/caca/*.la

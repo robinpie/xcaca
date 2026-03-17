@@ -1,0 +1,8 @@
+usr/bin/caca-config
+usr/include/*.h
+usr/lib/*/lib*.a
+usr/lib/*/lib*.so
+usr/lib/*/pkgconfig/*.pc
+usr/share/doc/libcaca-dev
+usr/share/man/man1/caca-config.1
+usr/share/man/man3/*.3caca

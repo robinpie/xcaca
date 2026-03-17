@@ -1,0 +1,22 @@
+From: Sebastian Ramacher <sramacher@debian.org>
+Date: Sun, 3 Sep 2023 22:31:17 +0200
+Subject: Don't generate PDF with latex
+
+doxygen 1.9.8 produces broken latex output.
+---
+ doc/doxygen.cfg.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/doxygen.cfg.in b/doc/doxygen.cfg.in
+index cf55161..4c39bf9 100644
+--- a/doc/doxygen.cfg.in
++++ b/doc/doxygen.cfg.in
+@@ -1748,7 +1748,7 @@ EXTRA_SEARCH_MAPPINGS  =
+ # If the GENERATE_LATEX tag is set to YES, doxygen will generate LaTeX output.
+ # The default value is: YES.
+ 
+-GENERATE_LATEX         = YES
++GENERATE_LATEX         = NO
+ 
+ # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
+ # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of

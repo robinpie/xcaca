@@ -204,8 +204,6 @@ cacaPollEvents(void)
     while (caca_host_poll_event(&ev)) {
         enum caca_event_type type = caca_get_event_type(&ev);
 
-        ErrorF("Xcaca: event type=0x%04x\n", type);
-
         if (type & CACA_EVENT_KEY_PRESS) {
             int sym  = caca_get_event_key_ch(&ev);
 

@@ -1,0 +1,10 @@
+#!/usr/bin/ruby
+
+require 'minitest/autorun'
+
+$LOAD_PATH.unshift(".libs").unshift("lib")
+
+Dir.glob("./t/tc*.rb").each{ |t|
+	require t
+}
+

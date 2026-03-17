@@ -87,6 +87,7 @@ void  caca_host_get_canvas_size(int *cols, int *rows);
 void  caca_host_get_dst_rect(int *x, int *y, int *w, int *h);
 void  caca_host_set_cell_aspect(float r);
 float caca_host_query_cell_aspect(void);
+void  caca_host_recompute_dst_rect(void);
 
 /* dither config setters */
 void  caca_host_set_dither_algorithm(const char *alg);
