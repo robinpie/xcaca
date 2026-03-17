@@ -12,7 +12,7 @@ This is experimental; many things are still broken.
 
 ## Requirements
 
-- Currently targets Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3). Completely untested and unspported on other distros, but if you wanna send in a pull request to improve cross-distro support I'd welcome it.
+- Currently targets Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3). Completely untested and unspported on other distros, but if you want to send in a pull request to improve cross-distro support I'd welcome it.
 - libcaca (`libcaca-dev`)
 - meson + ninja
 - xorg-server build dependencies
