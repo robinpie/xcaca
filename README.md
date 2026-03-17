@@ -8,6 +8,8 @@ Run regular X11 GUI applications as terminal art over SSH, in headless environme
 
 Built on the Kdrive/TinyX framework (same architecture as Xephyr). No root required.
 
+This is experimental; many things are still broken.
+
 ## Requirements
 
 - Currently targets Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3). Completely untested and unspported on other distros, but if you wanna send in a pull request to improve cross-distro support I'd welcome it.
