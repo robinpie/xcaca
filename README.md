@@ -10,7 +10,7 @@ Built on the Kdrive/TinyX framework (same architecture as Xephyr). No root requi
 
 ## Requirements
 
-- Currently targets Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3). Untested on other distros.
+- Currently targets Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3). Completely untested and unspported on other distros, but if you wanna send in a pull request to improve cross-distro support I'd welcome it.
 - libcaca (`libcaca-dev`)
 - meson + ninja
 - xorg-server build dependencies
@@ -141,3 +141,13 @@ Xcaca server
     │   └── caca_get_event() → keyboard/mouse
     └── cacainput.c — evdev scancode translation
 ```
+
+## Licensing
+
+**Xcaca** is licensed under the [X11 License](LICENSE).
+
+Xcaca is built on:
+- **xorg-server** ([X11 License](https://gitlab.freedesktop.org/xorg/xserver/-/blob/master/COPYING)) — compatible source license
+- **libcaca** ([GPLv2](http://caca.zoy.org/)) — the compiled binary inherits GPLv2 obligations
+
+The source code can remain under its original X11 license, but the compiled Xcaca binary is effectively GPLv2 due to libcaca linking. See [GPL linking](https://www.gnu.org/licenses/gpl-faq.html#SourceCodeForm) for details.

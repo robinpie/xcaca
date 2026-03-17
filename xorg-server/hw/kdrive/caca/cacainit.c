@@ -43,9 +43,7 @@ extern void cacaScreenBlockHandler(ScreenPtr pScreen, void *timeout);
 extern Bool kdHasPointer;
 extern Bool kdHasKbd;
 
-/* ------------------------------------------------------------------ */
-/* main                                                                */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ main . ݁₊ ⊹ . ݁˖ . ݁ */
 
 int
 main(int argc, char *argv[], char *envp[])
@@ -53,9 +51,7 @@ main(int argc, char *argv[], char *envp[])
     return dix_main(argc, argv, envp);
 }
 
-/* ------------------------------------------------------------------ */
-/* Kdrive entry points                                                 */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Kdrive entry points . ݁₊ ⊹ . ݁˖ . ݁ */
 
 void
 InitCard(char *name)
@@ -117,9 +113,7 @@ ddxBeforeReset(void)
 }
 #endif
 
-/* ------------------------------------------------------------------ */
-/* CLI argument parsing                                                */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ CLI argument parsing . ݁₊ ⊹ . ݁˖ . ݁ */
 
 /*
  * Add a screen at the given size string (e.g. "640x480").
@@ -247,9 +241,7 @@ ddxUseMsg(void)
     ErrorF("\n");
 }
 
-/* ------------------------------------------------------------------ */
-/* OsVendorInit                                                        */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ OsVendorInit . ݁₊ ⊹ . ݁˖ . ݁ */
 
 void
 OsVendorInit(void)

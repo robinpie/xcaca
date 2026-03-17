@@ -50,9 +50,7 @@ static Bool s_resize_pending = FALSE; /* set by resize handler, cleared after re
 static int  s_last_cols = -1;         /* canvas size after last processed resize */
 static int  s_last_rows = -1;
 
-/* ------------------------------------------------------------------ */
-/* Card-level lifecycle                                                */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Card-level lifecycle . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool
 cacaCardInit(KdCardInfo *card)
@@ -67,9 +65,7 @@ cacaCardFini(KdCardInfo *card)
 {
 }
 
-/* ------------------------------------------------------------------ */
-/* Screen initialisation                                               */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Screen initialisation . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool
 cacaScreenInitialize(KdScreenInfo *screen)
@@ -117,9 +113,7 @@ cacaMapFramebuffer(KdScreenInfo *screen)
     return TRUE;
 }
 
-/* ------------------------------------------------------------------ */
-/* Screen init chain                                                   */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Screen init chain . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool
 cacaInitScreen(ScreenPtr pScreen)
@@ -153,9 +147,7 @@ cacaFinishInitScreen(ScreenPtr pScreen)
     return TRUE;
 }
 
-/* ------------------------------------------------------------------ */
-/* CreateResources                                                     */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ CreateResources . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool
 cacaCreateResources(ScreenPtr pScreen)
@@ -177,9 +169,7 @@ cacaCreateResources(ScreenPtr pScreen)
     return TRUE;
 }
 
-/* ------------------------------------------------------------------ */
-/* BlockHandler — main render/poll loop                               */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ BlockHandler — main render/poll loop . ݁₊ ⊹ . ݁˖ . ݁ */
 
 static void
 cacaInternalDamageRedisplay(ScreenPtr pScreen)
@@ -295,9 +285,7 @@ cacaScreenBlockHandler(ScreenPtr pScreen, void *timeout)
     AdjustWaitForDelay(timeout, 16);  /* ~60 Hz */
 }
 
-/* ------------------------------------------------------------------ */
-/* Screen/card fini                                                    */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Screen/card fini . ݁₊ ⊹ . ݁˖ . ݁ */
 
 void
 cacaScreenFini(KdScreenInfo *screen)
@@ -323,9 +311,7 @@ cacaCloseScreen(ScreenPtr pScreen)
     }
 }
 
-/* ------------------------------------------------------------------ */
-/* Color map stubs (TrueColor only)                                    */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Color map stubs (TrueColor only) . ݁₊ ⊹ . ݁˖ . ݁ */
 
 void
 cacaGetColors(ScreenPtr pScreen, int n, xColorItem *pdefs)
@@ -344,9 +330,7 @@ cacaPutColors(ScreenPtr pScreen, int n, xColorItem *pdefs)
     /* TrueColor — nothing to do */
 }
 
-/* ------------------------------------------------------------------ */
-/* RandR                                                               */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ RandR . ݁₊ ⊹ . ݁˖ . ݁ */
 
 #ifdef RANDR
 
@@ -392,9 +376,7 @@ cacaRandRInit(ScreenPtr pScreen)
 
 #endif /* RANDR */
 
-/* ------------------------------------------------------------------ */
-/* KdCardFuncs                                                         */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ KdCardFuncs . ݁₊ ⊹ . ݁˖ . ݁ */
 
 KdCardFuncs cacaFuncs = {
     cacaCardInit,           /* cardinit */

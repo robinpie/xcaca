@@ -5,6 +5,9 @@ originalPrompt.md
 # Build output
 xorg-server/builddir/
 
+# Test output
+tests/output/
+
 # Convenience binary symlink/copy at project root
 Xcaca
 

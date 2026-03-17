@@ -17,9 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* ------------------------------------------------------------------ */
-/* Evdev scancode helpers                                              */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Evdev scancode helpers . ݁₊ ⊹ . ݁˖ . ݁ */
 
 /* Evdev scancodes are Linux input keycodes + 8 (the X11 offset). */
 #define EV(kc) ((kc) + 8)
@@ -302,9 +300,7 @@ caca_key_to_scancode(int key, Bool *needs_shift)
     return 0;
 }
 
-/* ------------------------------------------------------------------ */
-/* Mouse coordinate / button helpers (called from caca.c)             */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Mouse coordinate / button helpers (called from caca.c) . ݁₊ ⊹ . ݁˖ . ݁ */
 
 void
 caca_mouse_to_pixels(int cx, int cy)
@@ -359,9 +355,7 @@ caca_enqueue_button(int caca_btn, Bool release)
         KdEnqueuePointerEvent(cacaMouse, button_state | KD_MOUSE_DELTA, 0, 0, 0);
 }
 
-/* ------------------------------------------------------------------ */
-/* Keyboard driver                                                     */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Keyboard driver . ݁₊ ⊹ . ݁˖ . ݁ */
 
 static Bool
 CacaKeyboardInit(KdKeyboardInfo *ki)
@@ -418,9 +412,7 @@ KdKeyboardDriver CacaKeyboardDriver = {
     NULL,
 };
 
-/* ------------------------------------------------------------------ */
-/* Mouse driver                                                        */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Mouse driver . ݁₊ ⊹ . ݁˖ . ݁ */
 
 static Status
 CacaMouseInit(KdPointerInfo *pi)

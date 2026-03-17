@@ -40,9 +40,7 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 
-/* ------------------------------------------------------------------ */
-/* File-static state                                                   */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ File-static state . ݁₊ ⊹ . ݁˖ . ݁ */
 
 static caca_canvas_t  *s_canvas;
 static caca_display_t *s_display;
@@ -70,9 +68,7 @@ static int s_dst_x, s_dst_y, s_dst_w, s_dst_h;
 static struct termios s_saved_termios;
 static Bool s_termios_saved = FALSE;
 
-/* ------------------------------------------------------------------ */
-/* Internal helpers                                                    */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Internal helpers . ݁₊ ⊹ . ݁˖ . ݁ */
 
 /*
  * Recompute the letterbox/pillarbox destination rect so that the
@@ -134,9 +130,7 @@ apply_dither_settings(void)
     caca_set_dither_contrast(s_dither, s_contrast);
 }
 
-/* ------------------------------------------------------------------ */
-/* Public API                                                          */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Public API . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool
 caca_host_init(void)
@@ -358,9 +352,7 @@ caca_host_fini(void)
     }
 }
 
-/* ------------------------------------------------------------------ */
-/* Dither config setters                                               */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Dither config setters . ݁₊ ⊹ . ݁˖ . ݁ */
 
 void caca_host_set_dither_algorithm(const char *alg)
 {

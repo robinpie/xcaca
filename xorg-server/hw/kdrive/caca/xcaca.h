@@ -47,9 +47,7 @@ typedef struct _CacaScrPriv {
     KdScreenInfo       *screen;
 } CacaScrPriv;
 
-/* ------------------------------------------------------------------ */
-/* Globals declared in cacainit.c / caca.c                             */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ Globals declared in cacainit.c / caca.c . ݁₊ ⊹ . ݁˖ . ݁ */
 
 extern KdCardFuncs       cacaFuncs;
 extern KdKeyboardDriver  CacaKeyboardDriver;
@@ -57,9 +55,7 @@ extern KdPointerDriver   CacaMouseDriver;
 extern KdKeyboardInfo   *cacaKbd;
 extern KdPointerInfo    *cacaMouse;
 
-/* ------------------------------------------------------------------ */
-/* caca.c                                                              */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ caca.c . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool  cacaCardInit(KdCardInfo *card);
 Bool  cacaScreenInitialize(KdScreenInfo *screen);
@@ -80,9 +76,7 @@ Bool  cacaRandRSetConfig(ScreenPtr pScreen, Rotation randr, int rate,
 Bool  cacaRandRInit(ScreenPtr pScreen);
 #endif
 
-/* ------------------------------------------------------------------ */
-/* caca_host.c                                                         */
-/* ------------------------------------------------------------------ */
+/* . ݁₊ ⊹ . ݁˖ . ݁ caca_host.c . ݁₊ ⊹ . ݁˖ . ݁ */
 
 Bool  caca_host_init(void);
 void  caca_host_fini(void);
