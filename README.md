@@ -43,7 +43,7 @@ Binary: `xorg-server/builddir/hw/kdrive/caca/Xcaca`
 
 ## Usage
 
-Xcaca takes over the terminal it runs in to display ASCII art, so it **must run in the foreground** — backgrounding it with `&` causes `SIGTTOU` and immediately stops the process. Use two terminals or a tmux split:
+Xcaca takes over the terminal it runs in to display ASCII art, so it must run in the foreground — backgrounding it causes `SIGTTOU` and immediately stops the process. Use two terminals or a tmux split:
 
 ```bash
 # Terminal 1 (or tmux pane): Xcaca renders here
