@@ -43,13 +43,13 @@ Binary: `xorg-server/builddir/hw/kdrive/caca/Xcaca`
 
 ## Usage
 
-Xcaca takes over the terminal it runs in to display ASCII art, so it must run in the foreground — backgrounding it causes `SIGTTOU` and immediately stops the process. Use two terminals or a tmux split:
+Xcaca takes over the terminal it runs in to display ASCII art, so it must run in the foregrounds. Use two terminals, two TTYs, or a tmux split:
 
 ```bash
-# Terminal 1 (or tmux pane): Xcaca renders here
+# Terminal 1: Xcaca renders here
 ./xorg-server/builddir/hw/kdrive/caca/Xcaca :1 -screen 640x480
 
-# Terminal 2 (or another tmux pane): run X clients
+# Terminal 2: run X clients
 DISPLAY=:1 xeyes
 DISPLAY=:1 xclock
 DISPLAY=:1 xterm
