@@ -5,6 +5,7 @@ An X11 server that renders its framebuffer as ASCII art in your terminal, powere
 Run regular X11 GUI applications as terminal art over SSH, in headless environments, or just for the aesthetic.
 
 ![Screenshot of xeyes running in Xcaca](exampleScreenshot.png)
+![Screenshot of Firefox running in Xcaca](exampleScreenshot2.png)
 
 Built on the Kdrive/TinyX framework (same architecture as Xephyr). No root required.
 
