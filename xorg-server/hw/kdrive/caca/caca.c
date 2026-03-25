@@ -38,6 +38,11 @@
 #include "fb.h"
 #include "shadow.h"
 
+/* Evdev scancode helpers — duplicated from cacainput.c for key synthesis */
+#define EV(kc) ((kc) + 8)
+#define KEY_LEFTSHIFT  42
+#define KEY_LEFTCTRL   29
+
 #ifdef RANDR
 #include "randrstr.h"
 #endif
@@ -204,8 +209,11 @@ cacaPollEvents(void)
     while (caca_host_poll_event(&ev)) {
         enum caca_event_type type = caca_get_event_type(&ev);
 
+        ErrorF("Xcaca: event type=0x%x\n", type);
+
         if (type & CACA_EVENT_KEY_PRESS) {
             int sym  = caca_get_event_key_ch(&ev);
+            ErrorF("Xcaca: KEY_PRESS sym=%d (0x%x) cacaKbd=%p\n", sym, sym, (void*)cacaKbd);
 
             /* Ctrl+C: shut down the server (terminal convention) */
             if (sym == CACA_KEY_CTRL_C) {
@@ -214,9 +222,28 @@ cacaPollEvents(void)
                 return;
             }
 
-            int scan = caca_key_to_scancode(sym, NULL);
-            if (scan)
+            Bool needs_shift = FALSE;
+            Bool is_ctrl = (sym >= CACA_KEY_CTRL_A && sym <= CACA_KEY_CTRL_Z);
+            int scan = caca_key_to_scancode(sym, &needs_shift);
+            if (scan) {
+                /* Synthesise modifier press if needed */
+                if (needs_shift)
+                    KdEnqueueKeyboardEvent(cacaKbd, EV(KEY_LEFTSHIFT), FALSE);
+                if (is_ctrl)
+                    KdEnqueueKeyboardEvent(cacaKbd, EV(KEY_LEFTCTRL), FALSE);
+
                 KdEnqueueKeyboardEvent(cacaKbd, scan, FALSE);
+
+                /* Terminal backends never generate KEY_RELEASE events,
+                 * so synthesise an immediate release to prevent the key
+                 * from getting "stuck" (endless auto-repeat). */
+                KdEnqueueKeyboardEvent(cacaKbd, scan, TRUE);
+
+                if (is_ctrl)
+                    KdEnqueueKeyboardEvent(cacaKbd, EV(KEY_LEFTCTRL), TRUE);
+                if (needs_shift)
+                    KdEnqueueKeyboardEvent(cacaKbd, EV(KEY_LEFTSHIFT), TRUE);
+            }
         }
         else if (type & CACA_EVENT_KEY_RELEASE) {
             int sym  = caca_get_event_key_ch(&ev);

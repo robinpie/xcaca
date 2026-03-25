@@ -277,17 +277,19 @@ caca_key_to_scancode(int key, Bool *needs_shift)
     if (needs_shift)
         *needs_shift = FALSE;
 
-    /* Handle CACA_KEY_CTRL_A..Z (values 1..26) */
-    if (key >= CACA_KEY_CTRL_A && key <= CACA_KEY_CTRL_Z) {
-        int letter = key - CACA_KEY_CTRL_A; /* 0=A, 25=Z */
-        /* ctrl modifier is synthesised by cacainit.c caller */
-        return EV(KEY_A + letter);
-    }
-
-    /* Special keys */
+    /* Special keys first — CACA_KEY_BACKSPACE (0x08), CACA_KEY_TAB (0x09),
+     * and CACA_KEY_RETURN (0x0D) overlap with the Ctrl+A..Z range (1..26),
+     * so they must be checked before the Ctrl handler. */
     for (i = 0; special_key_map[i].caca_key != 0; i++) {
         if (special_key_map[i].caca_key == key)
             return special_key_map[i].evdev_scan;
+    }
+
+    /* Handle CACA_KEY_CTRL_A..Z (values 1..26) */
+    if (key >= CACA_KEY_CTRL_A && key <= CACA_KEY_CTRL_Z) {
+        int letter = key - CACA_KEY_CTRL_A; /* 0=A, 25=Z */
+        /* ctrl modifier is synthesised by caller */
+        return EV(KEY_A + letter);
     }
 
     /* ASCII printable */
@@ -362,7 +364,7 @@ caca_enqueue_button(int caca_btn, Bool release)
 
 /* . ݁₊ ⊹ . ݁˖ . ݁ Keyboard driver . ݁₊ ⊹ . ݁˖ . ݁ */
 
-static Bool
+static Status
 CacaKeyboardInit(KdKeyboardInfo *ki)
 {
     ki->minScanCode = 8;
@@ -376,13 +378,13 @@ CacaKeyboardInit(KdKeyboardInfo *ki)
     ki->name = strdup("Xcaca virtual keyboard");
 
     cacaKbd = ki;
-    return TRUE;
+    return Success;
 }
 
-static Bool
+static Status
 CacaKeyboardEnable(KdKeyboardInfo *ki)
 {
-    return TRUE;
+    return Success;
 }
 
 static void

@@ -398,7 +398,8 @@ EnableDevice(DeviceIntPtr dev, BOOL sendevent)
     input_lock();
     if ((*prev != dev) || !dev->inited ||
         ((ret = (*dev->deviceProc) (dev, DEVICE_ON)) != Success)) {
-        ErrorF("[dix] couldn't enable device %d\n", dev->id);
+        ErrorF("[dix] couldn't enable device %d: prev_match=%d inited=%d ret=%d\n",
+               dev->id, (*prev == dev), dev->inited, (*prev != dev || !dev->inited) ? -1 : ret);
         input_unlock();
         return FALSE;
     }

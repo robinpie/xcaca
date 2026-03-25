@@ -1639,8 +1639,14 @@ KdEnqueueKeyboardEvent(KdKeyboardInfo * ki,
     unsigned char key_code;
     int type;
 
-    if (!ki || !ki->dixdev || !ki->dixdev->kbdfeed || !ki->dixdev->key)
+    if (!ki || !ki->dixdev || !ki->dixdev->kbdfeed || !ki->dixdev->key) {
+        ErrorF("KdEnqueueKeyboardEvent: bail ki=%p dixdev=%p kbdfeed=%p key=%p\n",
+               (void*)ki,
+               ki ? (void*)ki->dixdev : NULL,
+               (ki && ki->dixdev) ? (void*)ki->dixdev->kbdfeed : NULL,
+               (ki && ki->dixdev) ? (void*)ki->dixdev->key : NULL);
         return;
+    }
 
     if (scan_code >= ki->minScanCode && scan_code <= ki->maxScanCode) {
         key_code = scan_code + KD_MIN_KEYCODE - ki->minScanCode;
@@ -1653,6 +1659,8 @@ KdEnqueueKeyboardEvent(KdKeyboardInfo * ki,
         else
             type = KeyPress;
 
+        ErrorF("KdEnqueueKeyboardEvent: scan=%d key_code=%d type=%d enabled=%d\n",
+               scan_code, key_code, type, ki->dixdev->enabled);
         QueueKeyboardEvents(ki->dixdev, type, key_code);
     }
     else {
