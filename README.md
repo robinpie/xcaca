@@ -13,16 +13,25 @@ This is experimental, be warned.
 
 ## Requirements
 
-- Currently targets Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3). Currently untested on other distros, but I intend to improve support in the future.
-- libcaca (`libcaca-dev`)
-- meson + ninja
-- xorg-server build dependencies
+Tested on:
+- Ubuntu 24.04 and derivatives (e.g. Linux Mint 22.3)
+- Arch Linux, as of June 2026
+
+Other remotely modern distros will likely work too, open a issue if it doesn't.
 
 ## Install dependencies
+
+### Ubuntu 24.04
 
 ```bash
 sudo apt install meson ninja-build libcaca-dev
 sudo apt build-dep xserver-xephyr
+```
+
+### Arch Linux
+
+```bash
+sudo pacman -S meson ninja libcaca xorgproto xtrans pixman libxkbfile libxfont2 libxau libxcvt libxcvt xorg-font-util libbsd libxdmcp
 ```
 
 ## Build
@@ -151,10 +160,8 @@ Xcaca server
 
 ## Licensing
 
-**Xcaca** is licensed under the [X11 License](LICENSE).
+Xcaca is licensed under the [X11 License](LICENSE).
 
 Xcaca is built on:
-- **xorg-server** ([X11 License](https://gitlab.freedesktop.org/xorg/xserver/-/blob/master/COPYING)) — compatible source license
-- **libcaca** ([GPLv2](http://caca.zoy.org/)) — the compiled binary inherits GPLv2 obligations
-
-The source code can remain under its original X11 license, but the compiled Xcaca binary is effectively GPLv2 due to libcaca linking. See [GPL linking](https://www.gnu.org/licenses/gpl-faq.html#SourceCodeForm) for details.
+- xorg-server ([X11 License](https://gitlab.freedesktop.org/xorg/xserver/-/blob/master/COPYING))
+- libcaca ([WTFPL](http://caca.zoy.org/))
