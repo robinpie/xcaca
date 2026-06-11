@@ -37,7 +37,7 @@ sudo pacman -S meson ninja libcaca xorgproto xtrans pixman libxkbfile libxfont2 
 ## Build
 
 ```bash
-cd xorg-server
+cd vendored/xorg-server
 meson setup builddir \
     -Dxcaca=true \
     -Dxephyr=false \
@@ -49,7 +49,9 @@ meson setup builddir \
 ninja -C builddir
 ```
 
-Binary: `xorg-server/builddir/hw/kdrive/caca/Xcaca`
+Binary: `vendored/xorg-server/builddir/hw/kdrive/caca/Xcaca`
+
+The backend sources live in `src/`. They are symlinked into the vendored tree at `vendored/xorg-server/hw/kdrive/caca` so the upstream meson build picks them up. See [`patches/`](patches) for the edits made to vendored files.
 
 ## Usage
 
@@ -57,7 +59,7 @@ Xcaca takes over the terminal it runs in to display ASCII art, so it must run in
 
 ```bash
 # Terminal 1: Xcaca renders here
-./xorg-server/builddir/hw/kdrive/caca/Xcaca :1 -screen 640x480
+./vendored/xorg-server/builddir/hw/kdrive/caca/Xcaca :1 -screen 640x480
 
 # Terminal 2: run X clients
 DISPLAY=:1 xeyes

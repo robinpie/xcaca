@@ -3,7 +3,7 @@ CLAUDE.md
 originalPrompt.md
 
 # Build output
-xorg-server/builddir/
+vendored/xorg-server/builddir/
 
 # Test output
 tests/output/
@@ -12,8 +12,8 @@ tests/output/
 Xcaca
 
 # libcaca source tarballs downloaded during development
-xorg-server/libcaca_*.tar.*
-xorg-server/libcaca_*.debian.tar.*
+vendored/xorg-server/libcaca_*.tar.*
+vendored/xorg-server/libcaca_*.debian.tar.*
 
 # Logs
 *.log

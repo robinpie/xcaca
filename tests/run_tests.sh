@@ -32,7 +32,7 @@ set -o pipefail
 # . ݁₊ ⊹ . ݁˖ . ݁
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-XCACA_BIN="$REPO_ROOT/xorg-server/builddir/hw/kdrive/caca/Xcaca"
+XCACA_BIN="$REPO_ROOT/vendored/xorg-server/builddir/hw/kdrive/caca/Xcaca"
 OUTPUT_DIR="$SCRIPT_DIR/output"
 mkdir -p "$OUTPUT_DIR"
 
@@ -831,7 +831,7 @@ done
 
 if [ ! -x "$XCACA_BIN" ]; then
     echo "ERROR: Xcaca binary not found or not executable: $XCACA_BIN"
-    echo "       Build with:  cd xorg-server && ninja -C builddir"
+    echo "       Build with:  cd vendored/xorg-server && ninja -C builddir"
     exit 1
 fi
 
